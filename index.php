@@ -4,7 +4,7 @@ $insert = false;
 $server = "localhost";
 $username = "root";
 $password = "";
-$database = "formdb";
+$database = "crud";
 
 $con = mysqli_connect($server, $username, $password, $database);
 // check connection
@@ -15,7 +15,7 @@ $con = mysqli_connect($server, $username, $password, $database);
 //     echo "Connection error <br> " . mysqli_connect_error();
 // }
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if(isset($_POST['slEdit'])){
+    if(isset($_POST['update'])){
         //  update sql query ========
         $sl     = $_POST['slEdit'];
         $title  = $_POST['titleEdit'];
@@ -24,10 +24,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         // main sql query ========
         $sql    = "UPDATE `crud` SET `title` = '$title' , `comm` = '$comm' WHERE `crud`.`sl` = $sl";
         $result = mysqli_query($con, $sql);
+
+        
         if($result){
-            echo "updated record successfylly!";
+            
         } else echo "error to update the record!";
-    } else {
+    } 
+    else {
         $title  = $_POST['title'];
         $comm   = $_POST['comm'];
 
@@ -69,17 +72,17 @@ Edit Modal
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="/php/crud/index.php" method="POST">
-        <input type="hidden" id ="slEdit">
+      <form action="/crud/index.php" method="POST">
+        <input type="hidden" name="slEdit" id ="slEdit">
                     <div class="mb-3">
                         <label  class="form-label">Title</label>
-                        <input type="text" class="form-control" id="titleEdit" name="titleEdit">
+                        <input type="text" class="form-control" id="titleEdit" name="titleEdit" >
                     </div>
                     <div class="mb-3">            
                         <label  class="form-label">Description</label>
-                        <textarea class="form-control" name="commEdit" id="commEdit" cols="30" rows="3"></textarea>
+                        <textarea class="form-control" name="commEdit" id="commEdit" cols="30" rows="3" ></textarea>
                     </div>
-                    <button type="submit" name="submit" class="btn btn-primary mb-5">Update data</button>
+                    <button type="submit" name="update" class="btn btn-primary mb-5">Update data</button>
                 </form>
       </div>
       <div class="modal-footer">
@@ -89,7 +92,9 @@ Edit Modal
     </div>
   </div>
 </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -139,7 +144,7 @@ Edit Modal
                 }
                 ?>
                 <h2>Add a Task</h2>
-                <form action="/php/crud/index.php" method="POST">
+                <form action="/crud/index.php" method="POST">
                     <div class="mb-3">
                         <label  class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title">
